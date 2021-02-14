@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 pandas = "^1.2.2"
 folium = "^0.12.1"
+geojson = "^2.5.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
