@@ -1,7 +1,5 @@
-
-import pandas as pd
-
 import folium
+import pandas as pd
 from folium.plugins import MarkerCluster
 
 # オープンデータ用北海道施設位置情報データベース
@@ -10,7 +8,13 @@ df = pd.read_csv(url, encoding="cp932")
 
 print(df)
 
-my_map = folium.Map(location=[43.0645597,141.3481196], zoom_start=10, width="90%", height="90%", tiles="openstreetmap")
+my_map = folium.Map(
+    location=[43.0645597, 141.3481196],
+    zoom_start=10,
+    width="90%",
+    height="90%",
+    tiles="openstreetmap",
+)
 marker_cluster = MarkerCluster()
 
 for _, row in df.iterrows():
@@ -49,4 +53,4 @@ for _, row in df.iterrows():
 
 
 marker_cluster.add_to(my_map)
-my_map.save('doc/folium.html')
+my_map.save("doc/folium.html")

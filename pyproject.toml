@@ -20,3 +20,16 @@ autoflake = "^1.4"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+include_trailing_comma = true
+multi_line_output = 3
+
+[tool.taskipy.tasks]
+format = "task black && task isort && task autoflake"
+black = "black ."
+isort = "isort . --profile black"
+autoflake = "autoflake -ri --remove-all-unused-imports --ignore-init-module-imports --remove-unused-variables ."
