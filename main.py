@@ -25,6 +25,7 @@ def all():
 
 @app.command()
 def geojson(dest="docs/example.geojson", pretty=True):
+    """ genreate example.geojson """
     def __feature(row: pd.Series):
         """ GeoJSONのFeature要素(Point)を作成 """
         lat = row["緯度"]
@@ -82,6 +83,7 @@ def geojson(dest="docs/example.geojson", pretty=True):
 
 @app.command()
 def folium(dest="docs/folium.html"):
+    """ genreate folium.html """
     my_map = Map(
         location=[43.0645597, 141.3481196],
         zoom_start=10,
