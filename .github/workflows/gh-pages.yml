@@ -16,11 +16,13 @@ jobs:
         with:
           python-version: "3.8"
 
-      - name: Install and Builddependencies and Run
+      - name: Install and Builddependencies
         run: |
           python -m pip install --upgrade pip && pip install --no-cache-dir poetry
           poetry config virtualenvs.create false && poetry install
-          poetry run python main.py all
+
+      - name: Run
+        run: poetry run python main.py all
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
