@@ -9,18 +9,19 @@ from geojson import Feature, FeatureCollection, Point
 
 app = typer.Typer()
 
+# オープンデータ用北海道施設位置情報データベース
+# @see https://koukita.github.io/hokkaido_od_geodatabase/
+url = "https://koukita.github.io/hokkaido_od_geodatabase/data/Hokkaido_OD_GeoDataBase2018.csv"
+df = pd.read_csv(url, encoding="cp932").fillna(
+    ""
+)  # geojsonはnullが入るとコケるので空文字に倒す
+df = df.query('データ区分 != "国・都道府県機関"')  # 該当データはlat=lngとなっており作成ミスっぽいので削除
 
-def load():
-    # オープンデータ用北海道施設位置情報データベース
-    # @see https://koukita.github.io/hokkaido_od_geodatabase/
-    url = "https://koukita.github.io/hokkaido_od_geodatabase/data/Hokkaido_OD_GeoDataBase2018.csv"
-    df = pd.read_csv(url, encoding="cp932").fillna(
-        ""
-    )  # geojsonはnullが入るとコケるので空文字に倒す
-    df = df.query('データ区分 != "国・都道府県機関"')  # 該当データはlat=lngとなっており作成ミスっぽいので削除
 
-    return df
-
+@app.command()
+def all():
+    folium()
+    geojson()
 
 @app.command()
 def geojson(dest="docs/example.geojson", pretty=True):
@@ -61,7 +62,6 @@ def geojson(dest="docs/example.geojson", pretty=True):
         return Feature(geometry=Point(coords), properties=props)
 
     # genrerate feature list
-    df = load()
     features = df.apply(__feature, axis=1).tolist()
 
     # pretty or minify
@@ -82,8 +82,6 @@ def geojson(dest="docs/example.geojson", pretty=True):
 
 @app.command()
 def folium(dest="docs/folium.html"):
-    df = load()
-
     my_map = Map(
         location=[43.0645597, 141.3481196],
         zoom_start=10,

@@ -30,7 +30,7 @@ $ cat docs/example.geojson | jq .
 ## geolonia example
 
 ```
-$ cd docs/
+$ cd public/
 $ python -m http.server 18080
 -> http://localhost:18080/geolonia.html
 ```
