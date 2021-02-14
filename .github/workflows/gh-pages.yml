@@ -18,7 +18,6 @@ jobs:
 
       - name: Install and Builddependencies and Run
         run: |
-          cp -a public docs
           python -m pip install --upgrade pip && pip install --no-cache-dir poetry
           poetry config virtualenvs.create false && poetry install
           poetry run python main.py all
