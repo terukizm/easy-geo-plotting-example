@@ -5,13 +5,14 @@ from folium.plugins import MarkerCluster
 # オープンデータ用北海道施設位置情報データベース
 url = "https://koukita.github.io/hokkaido_od_geodatabase/data/Hokkaido_OD_GeoDataBase2018.csv"
 df = pd.read_csv(url, encoding="cp932")
+df = df.query('データ区分 != "国・都道府県機関"')
 
 print(df)
 
 my_map = folium.Map(
     location=[43.0645597, 141.3481196],
     zoom_start=10,
-    width="90%",
+    width="100%",
     height="90%",
     tiles="openstreetmap",
 )
@@ -53,4 +54,4 @@ for _, row in df.iterrows():
 
 
 marker_cluster.add_to(my_map)
-my_map.save("doc/folium.html")
+my_map.save("docs/folium.html")
