@@ -1,11 +1,33 @@
 easy-geo-plotting-example
 ---
 
-https://terukizm.github.io/easy-geo-plotting-example/
+@see https://terukizm.github.io/easy-geo-plotting-example/
 
 
+# Usage
 
-# geolonia example
+## Setup
+
+```
+$ git clone git@github.com:terukizm/easy-geo-plotting-example.git
+$ cd easy-geo-plotting-example/
+$ poetry install
+```
+
+## generate folium
+
+```
+$ poetry run python main.py folium
+$ open docs/folium.html
+```
+
+## generate geojson
+
+```
+$ poetry run python main.py geojson
+$ cat docs/example.geojson | jq .
+```
+## geolonia example
 
 ```
 $ cd docs/
