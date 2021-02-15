@@ -12,9 +12,11 @@ app = typer.Typer()
 # オープンデータ用北海道施設位置情報データベース
 # @see https://koukita.github.io/hokkaido_od_geodatabase/
 url = "https://koukita.github.io/hokkaido_od_geodatabase/data/Hokkaido_OD_GeoDataBase2018.csv"
+
+# geojsonはnullが入るとコケるので空文字に倒す
 df = pd.read_csv(url, encoding="cp932").fillna(
     ""
-)  # geojsonはnullが入るとコケるので空文字に倒す
+)
 df = df.query('データ区分 != "国・都道府県機関"')  # 該当データはlat=lngとなっており作成ミスっぽいので削除
 
 
@@ -132,4 +134,9 @@ def folium(dest="docs/folium.html"):
 
 
 if __name__ == "__main__":
+    """
+    usage:
+      $ python main.py folium
+      $ python main.py geojson
+    """
     app()
